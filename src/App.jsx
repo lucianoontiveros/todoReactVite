@@ -58,7 +58,7 @@ const App = () => {
 
   return ( 
   <>
-    <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain min-h-screen bg-gray-300 ">
+    <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain min-h-screen bg-gray-300 dark:bg-neutral-900">
       <Header/>
 
       <main className="rounded-md overflow-hidden mt-4 mx-2">
@@ -76,7 +76,7 @@ const App = () => {
         {/* TodoCFilter */}
         <TodoFilter  changeFilter={changeFilter} filter={filter}/>
 
-      <footer className="text-center mt-8"> Drag and drofooter to reorder list </footer>
+      <footer className="text-center dark:text-fuchsia-300 mt-8"> Drag and drofooter to reorder list </footer>
     </div>
   </>
   )

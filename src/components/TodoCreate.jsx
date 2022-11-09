@@ -16,12 +16,12 @@ const TodoCreate = ({createTodo}) => {
     return(
         <form 
           onSubmit={heandleSubmitAddTodo} 
-          className=" flex items-center rounded-md bg-white py-4 px-5">
+          className=" flex items-center rounded-md bg-white dark:bg-indigo-900 py-4 px-5 ">
           <span className=" inline-block h-5 w-6 rounded-full border-2"></span>
           <input 
             type="text" 
             placeholder=" Create a new todo..." 
-            className="w-full text-gray-800 mx-3 outline-none"
+            className="w-full  dark:bg-indigo-900 text-gray-800 dark:text-fuchsia-200  mx-3 outline-none "
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
