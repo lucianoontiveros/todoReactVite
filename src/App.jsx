@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import Header from "./components/Header";
 import TodoComputed from "./components/Todocomputed";
@@ -5,16 +6,15 @@ import TodoCreate from "./components/TodoCreate";
 import TodoFilter from "./components/TodoFilter";
 import TodoList from "./components/TodoList";
 
-const initialStateTodos = [
-  { id: 1, title:"Complete online Javascroipt bluuweb curse", complete:true},
-  { id: 2, title:"Complete online Javascroipt bluuweb curse", complete:false},
-  { id: 3, title:"Complete online Javascroipt bluuweb curse", complete:false},
-  { id: 4, title:"Complete online Javascroipt bluuweb curse", complete:false},
-]
+const initialStateTodos = JSON.parse(localStorage.getItem("todos")) || [];
 
 const App = () => { 
 
   const [todos, setTodos] = useState(initialStateTodos)
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  })
 
   const createTodo = (title) => {
     const newTodo = { 
@@ -58,10 +58,10 @@ const App = () => {
 
   return ( 
   <>
-    <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain min-h-screen bg-gray-300 dark:bg-neutral-900">
+    <div className="transition-all duration-1000 bg-[url('./assets/images/bg-mobile-light.jpg')] md:bg-[url('./assets/images/bg-desktop-light.jpg')] bg-no-repeat bg-contain min-h-screen bg-gray-300  dark:bg-gray-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] dark:md:bg-[url('./assets/images/bg-desktop-dark.jpg')]">
       <Header/>
 
-      <main className="rounded-md overflow-hidden mt-4 mx-2">
+      <main className="rounded-md overflow-hidden mt-4 mx-auto md:max-w-xl">
         {/* Todo create */}
         <TodoCreate createTodo={createTodo}/>
 
@@ -71,11 +71,12 @@ const App = () => {
         {/* TodoCompute */}
         <TodoComputed computedItemsLeft={computedItemsLeft} clearComplete={clearComplete} />
 
-      </main>
+    
 
         {/* TodoCFilter */}
         <TodoFilter  changeFilter={changeFilter} filter={filter}/>
 
+      </main>
       <footer className="text-center dark:text-fuchsia-300 mt-8"> Drag and drofooter to reorder list </footer>
     </div>
   </>

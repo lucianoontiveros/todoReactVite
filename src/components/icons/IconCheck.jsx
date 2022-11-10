@@ -4,11 +4,12 @@ const IconCheck = ({...props}) => {
         {...props}
         xmlns="http://www.w3.org/2000/svg" 
         width="11" 
-        height="9">
-        
-        <path 
+        height="9"
         fill="none" 
         stroke="#FFF" 
+        >
+        
+        <path 
         stroke-width="2" 
         d="M1 4.304L3.696 7l6-6"/></svg>
     )
