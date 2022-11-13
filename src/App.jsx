@@ -5,8 +5,18 @@ import TodoComputed from "./components/Todocomputed";
 import TodoCreate from "./components/TodoCreate";
 import TodoFilter from "./components/TodoFilter";
 import TodoList from "./components/TodoList";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+
 
 const initialStateTodos = JSON.parse(localStorage.getItem("todos")) || [];
+
+const reorder = (list, startIndex, endIndex) => {
+  const result = [...list];
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
 
 const App = () => { 
 
@@ -55,6 +65,19 @@ const App = () => {
     }
   }
 
+  const handleDragEnd = (result) => {
+    const { destination, source } = result;
+    if (!destination) return;
+    if (
+        source.index === destination.index &&
+        source.droppableId === destination.droppableId
+    )
+        return;
+
+    setTodos((prevTasks) =>
+        reorder(prevTasks, source.index, destination.index)
+    );
+  };
 
   return ( 
   <>
@@ -66,7 +89,10 @@ const App = () => {
         <TodoCreate createTodo={createTodo}/>
 
         {/* TodoList(TodoItem) TodoUpdate y TodoDelete */}
-        <TodoList  todos={filterTodos()} removeTodo={removeTodo} apdateTodo={apdateTodo} />
+        <DragDropContext  onDragEnd={handleDragEnd}>
+          <TodoList  todos={filterTodos()} removeTodo={removeTodo} apdateTodo={apdateTodo} />
+        </DragDropContext>
+
 
         {/* TodoCompute */}
         <TodoComputed computedItemsLeft={computedItemsLeft} clearComplete={clearComplete} />
